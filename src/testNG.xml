@@ -1,0 +1,13 @@
+<suite name = "Suite1" parallel = "tests" thread-count="2">
+    <test name = "test1">
+        <classes>
+            <class name = "Runner.SmokeTestRunner"></class>
+
+        </classes>
+    </test>
+    <test name = "test2">
+        <classes>
+            <class name = "Runner.RegressionTestRunner"></class>
+        </classes>
+    </test>
+</suite>
