@@ -2,6 +2,7 @@ package PageClasses;
 
 import Utilities.Driver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -30,7 +31,8 @@ public class _01_ParentClass {
     public void clickFunction(WebElement ElementToClick){
 
         System.out.println(ElementToClick + "in the click function");
-        WebElement element = waitUntilVisible(ElementToClick);
+        WebElement element = waitUntilClickable(ElementToClick);
+        scrollToElement(element);
         element.click();
 
     }
@@ -40,6 +42,15 @@ public class _01_ParentClass {
         WebDriverWait wait = new WebDriverWait(driver , 10);
 
         WebElement elementName= wait.until(ExpectedConditions.visibilityOf(e1));
+
+        return elementName;
+    }
+
+    public WebElement waitUntilClickable(WebElement e1){
+
+        WebDriverWait wait = new WebDriverWait(driver , 10);
+
+        WebElement elementName= wait.until(ExpectedConditions.elementToBeClickable(e1));
 
         return elementName;
     }
@@ -76,6 +87,11 @@ public class _01_ParentClass {
 
     }
 
+    public void scrollToElement(WebElement elementToScroll){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
 
+        //This will scroll the page till the element is found
+        js.executeScript("arguments[0].scrollIntoView();", elementToScroll);
+    }
 
 }

@@ -1,13 +1,10 @@
 package Utilities;
 
-import cucumber.api.java.Before;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,38 +12,67 @@ public class Driver {
 
 //    public static WebDriver driver;
 
-    private static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
+    private static ThreadLocal<WebDriver> driverInstance = new ThreadLocal<WebDriver>();
+
+    public static String browsername;
 
     public static WebDriver GetDriver(){
 
-        if(driver.get()==null) {
+        if(driverInstance.get()==null) {
 
-            System.setProperty("webdriver.chrome.driver", "D:\\Selenium dependency\\drivers\\chromedriver.exe");
-
-            setWebDriver(DriverFactory.createInstance(null));
+            setWebDriver(ChooseDriver(browsername));
 
         }
 
-        return driver.get();
+        return driverInstance.get();
 
     }
 
     public static void setWebDriver(WebDriver driver) {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        Driver.driver.set(driver);
+
+        Driver.driverInstance.set(driver);
     }
 
     public static void quitDriver(){
 
-        if( driver.get()!=null) {
-            driver.get().quit();
-            WebDriver driver1 = driver.get();
+        if( driverInstance.get()!=null) {
+            driverInstance.get().quit();
+            WebDriver driver1 = driverInstance.get();
             driver1=null;
-            driver.set(driver1);
-
+            driverInstance.set(driver1);
         }
 
     }
 
+    private static WebDriver ChooseDriver(String browserName){
+
+        WebDriver driver;
+
+        System.out.println(browserName + "<---------------- browser name ");
+
+        if(browserName==null){
+            browserName="chrome";
+        }
+
+        switch (browserName) {
+            case "firefox":
+                WebDriverManager.firefoxdriver().setup();
+                driver = new FirefoxDriver();
+                break;
+
+            case "chrome":
+                WebDriverManager.chromedriver().setup();
+                driver = new ChromeDriver();
+                break;
+
+            default:
+                WebDriverManager.chromedriver().setup();
+                driver = new ChromeDriver();
+                break;
+        }
+
+        driver.manage().window().maximize();
+        return driver;
+    }
 
 }

@@ -1,11 +1,16 @@
 package Runner;
 
+import Utilities.Driver;
 import com.cucumber.listener.Reporter;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
-import org.testng.annotations.AfterClass;
+import org.testng.annotations.*;
 
 import java.io.File;
+
+/*
+        Run the failed test cases
+ */
 
 @CucumberOptions(
         plugin={"com.cucumber.listener.ExtentCucumberFormatter:target/html/ExtentReportSmoke.html"},
@@ -26,6 +31,12 @@ import java.io.File;
         )
 
         public class SmokeTestRunner extends AbstractTestNGCucumberTests {
+
+        @BeforeTest
+        @Parameters("browser")
+        public void beforeMethod(String browser){
+                Driver.browsername=browser;
+        }
 
         @AfterClass
         public static void setup()

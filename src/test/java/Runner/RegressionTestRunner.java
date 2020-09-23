@@ -1,5 +1,6 @@
 package Runner;
 
+import Utilities.Driver;
 import Utilities.FileReaderManager;
 import Utilities.ReadProperties;
 import cucumber.api.CucumberOptions;
@@ -7,6 +8,9 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 import org.testng.annotations.AfterClass;
 import com.cucumber.listener.Reporter;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
+
 import java.io.File;
 
 @CucumberOptions(
@@ -29,6 +33,12 @@ import java.io.File;
 )
 
 public class RegressionTestRunner extends AbstractTestNGCucumberTests {
+
+        @BeforeTest
+        @Parameters("browser")
+        public void beforeMethod(String browser){
+                Driver.browsername=browser;
+        }
 
         @AfterClass
         public static void setup()

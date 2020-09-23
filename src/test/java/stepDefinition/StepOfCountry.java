@@ -81,7 +81,6 @@ public class StepOfCountry {
     public void delete_a_Country_name(String name) {
         ms_dialog.handleTheMultipleList("delete" , name);
         ms_dialog.findTheElementFromThePageAndClick("buttonYes");
-
     }
 
     @Then("^Success message is displayed$")

@@ -123,7 +123,7 @@ public class MS_Dialog extends _01_ParentClass {
         List<WebElement> l1 = new ArrayList<>();
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

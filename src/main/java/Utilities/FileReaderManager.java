@@ -10,10 +10,6 @@ public class FileReaderManager {
     private FileReaderManager() {
     }
 
-    public static FileReaderManager getInstance( ) {
-        return fileReaderManager;
-    }
-
     public ReadProperties getConfigReader() {
         return (configFileReader == null) ? new ReadProperties() : configFileReader;
     }

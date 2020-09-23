@@ -36,7 +36,6 @@ public class LeftNavigator extends _01_ParentClass {
     @FindBy(xpath=" //span[text()='Schedulers Management']")
     private WebElement Schedulers_Management;
 
-
     @FindBy(xpath="//ms-add-button//button")
     private WebElement addButton;
 
